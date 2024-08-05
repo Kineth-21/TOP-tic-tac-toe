@@ -1,0 +1,97 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: black;
+    color: blueviolet;
+    
+}
+
+h1{
+    text-align: center;
+    padding: 5px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.mainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.gameContainer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    background-color: beige;
+    width: 600px;
+    height: 600px;
+}
+
+.cell{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
+.cell1{
+    grid-area: 1 / 1 / 2 / 2;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.cell2{
+    grid-area: 1 / 2 / 2 / 3;
+    border-bottom: 1px solid white;
+}
+
+.cell3{
+    grid-area: 1 / 3 / 2 / 4;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.cell4{
+    grid-area: 2 / 1 / 3 / 2;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.cell5{
+    grid-area: 2 / 2 / 3 / 3;
+    border-bottom: 1px solid white;
+}
+
+.cell6{
+    grid-area: 2 / 3 / 3 / 4;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.cell7{
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+.cell8{
+    grid-area: 3 / 2 / 4 / 3;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+}
+
+.cell9{
+    grid-area: 3 / 3 / 4 / 4;
+}
