@@ -84,14 +84,16 @@ body{
 
 .cell7{
     grid-area: 3 / 1 / 4 / 2;
+    border-right: 1px solid white;
 }
 
 .cell8{
     grid-area: 3 / 2 / 4 / 3;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
+    
+    
 }
 
 .cell9{
     grid-area: 3 / 3 / 4 / 4;
+    border-left: 1px solid white;
 }
