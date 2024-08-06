@@ -37,9 +37,9 @@ const gameCreator = () => {
 
     let currentMark = player1.getMark();
 
-    const addClickable = (event) =>{
+    const addClickable = (event) =>{ // a function to add mark to the div
         const cell = event.target;
-        const index = cell.getAttribute("data-index");
+        const index = cell.getAttribute("data-index"); // gets the index to update the content of the board
         gameBoard.updateBoard(index, currentMark);
         cell.textContent = currentMark;
 
@@ -50,14 +50,16 @@ const gameCreator = () => {
         const winner = winCheck();
 
         if(winner === "Tie"){
-            dialog.showModal();
+            dialog.show();
+            console.log("im at tie");
             resultPanel.textContent = "It's a tie";
         }
         else if(winner === null){
             resultPanel.textContent = "In progress"
         }
         else{
-            dialog.showModal();
+            dialog.show();
+            console.log("im at win");
             resultPanel.textContent = winner === player1.getMark()? "Player 1 wins!" : "Player 2 wins!";
         }
     }
