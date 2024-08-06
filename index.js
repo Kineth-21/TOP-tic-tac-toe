@@ -35,14 +35,18 @@ const gameCreator = () => {
 
     let player1Turn = true;
 
+    const whichPlayerTurn = document.querySelector("#playerTurn");
+    whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn";
+
     let currentMark = player1.getMark();
 
     const addClickable = (event) =>{ // a function to add mark to the div
         const cell = event.target;
         const index = cell.getAttribute("data-index"); // gets the index to update the content of the board
-        gameBoard.updateBoard(index, currentMark);
+        gameBoard.updateBoard(index, currentMark); // change the index of the array to current mark
         cell.textContent = currentMark;
 
+        whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn";
         player1Turn = !player1Turn;
         currentMark = player1Turn ? player1.getMark() : player2.getMark();
         cell.style.pointerEvents = "none";
@@ -51,20 +55,27 @@ const gameCreator = () => {
 
         if(winner === "Tie"){
             dialog.show();
-            console.log("im at tie");
             resultPanel.textContent = "It's a tie";
         }
         else if(winner === null){
-            resultPanel.textContent = "In progress"
+            return;
         }
         else{
+            disableClick();
             dialog.show();
-            console.log("im at win");
             resultPanel.textContent = winner === player1.getMark()? "Player 1 wins!" : "Player 2 wins!";
         }
     }
-
+    
     const cells = document.querySelectorAll(".cell");
+
+    const disableClick = () =>{ // removes the clicking event of all the grid cells
+        cells.forEach(cell => {
+            cell.style.pointerEvents = "none";
+        })
+    }
+
+    
     cells.forEach(cell =>{
         cell.addEventListener("click", addClickable);
     });
@@ -86,34 +97,38 @@ const gameCreator = () => {
         for (const element of winConditions) {
             const [a, b, c] = element;
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                console.log(board[a]);
                 return board[a]; // Return the winning mark
             }
         }
     
         return board.includes(null) ? null : 'Tie'; // Return 'Tie' if board is full
     };
-    
-    return {addClickable};
+
+    const resetGame = () =>{
+        whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn";
+        gameBoard.resetBoard();
+
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach(cell => {
+            cell.style.pointerEvents = "auto";
+            cell.textContent = "";
+            cell.removeEventListener("click", game.addClickable);
+        });
+
+        resultPanel.textContent = "";
+        dialog.close();
+
+        cells.forEach(cell => {
+            cell.addEventListener("click", addClickable);
+        });
+    }
+    return {addClickable, resetGame};
 }
 
 const game = gameCreator(); // initialise game
 
-const resetGame = () =>{
-    gameBoard.resetBoard();
 
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach(cell => {
-        cell.style.pointerEvents = "auto";
-        cell.textContent = "";
-        cell.removeEventListener("click", game.addClickable);
-    });
-
-    resultPanel.textContent = "";
-    dialog.close();
-
-    gameCreator();  // reinitialise the game
-}
 
 const resetBtn = document.querySelector(".resetBtn");
-resetBtn.addEventListener("click", resetGame); //adding eventlistener to reset button
-
+resetBtn.addEventListener("click", game.resetGame); //adding eventlistener to reset button
