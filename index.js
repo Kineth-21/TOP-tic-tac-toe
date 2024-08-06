@@ -10,7 +10,7 @@ const gameBoard = (() => {
 
     const updateBoard = (index, mark) =>{
         board[index] = mark;
-        console.log("Board updated:", board);
+        // console.log("Board updated:", board);
     }
 
     return{resetBoard, getBoard, updateBoard};
@@ -47,8 +47,8 @@ const gameCreator = () => {
         cell.textContent = currentMark;
 
         whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn";
-        player1Turn = !player1Turn;
-        currentMark = player1Turn ? player1.getMark() : player2.getMark();
+        player1Turn = !player1Turn; // change player turn
+        currentMark = player1Turn ? player1.getMark() : player2.getMark(); // change current mark after every click
         cell.style.pointerEvents = "none";
 
         const winner = winCheck();
@@ -61,7 +61,7 @@ const gameCreator = () => {
             return;
         }
         else{
-            disableClick();
+            disableClick(); // ensure no grid can be clicked after dialog pops up
             dialog.show();
             resultPanel.textContent = winner === player1.getMark()? "Player 1 wins!" : "Player 2 wins!";
         }
@@ -97,7 +97,6 @@ const gameCreator = () => {
         for (const element of winConditions) {
             const [a, b, c] = element;
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                console.log(board[a]);
                 return board[a]; // Return the winning mark
             }
         }
@@ -106,13 +105,13 @@ const gameCreator = () => {
     };
 
     const resetGame = () =>{
-        whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn";
+        whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn"; // modify the heading to show whose turn it is
         gameBoard.resetBoard();
 
         const cells = document.querySelectorAll(".cell");
         cells.forEach(cell => {
             cell.style.pointerEvents = "auto";
-            cell.textContent = "";
+            cell.textContent = ""; // clear the cell content
             cell.removeEventListener("click", game.addClickable);
         });
 
