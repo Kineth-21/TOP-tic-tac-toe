@@ -46,8 +46,8 @@ const gameCreator = () => {
         gameBoard.updateBoard(index, currentMark); // change the index of the array to current mark
         cell.textContent = currentMark;
 
-        whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn";
         player1Turn = !player1Turn; // change player turn
+        whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn";
         currentMark = player1Turn ? player1.getMark() : player2.getMark(); // change current mark after every click
         cell.style.pointerEvents = "none";
 
@@ -105,7 +105,7 @@ const gameCreator = () => {
     };
 
     const resetGame = () =>{
-        whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn"; // modify the heading to show whose turn it is
+        // whichPlayerTurn.textContent = player1Turn? "Player 1's turn" : "Player 2's turn"; // modify the heading to show whose turn it is
         gameBoard.resetBoard();
 
         const cells = document.querySelectorAll(".cell");
